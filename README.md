@@ -19,7 +19,8 @@ Role Variables
 
 Example Playbook
 -------------------------
-
+```yml
   - hosts: servers
     roles:
        - palkan.deploy_user
+```
