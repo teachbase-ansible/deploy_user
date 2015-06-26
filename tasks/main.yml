@@ -1,13 +1,12 @@
-- name: Add deploy user
+- name: Deploy User | Create
   user: name="{{ deploy_user}}" groups="sudo" shell="/bin/bash"
-  when: deploy_user_sudo
 
-- name: Add RSA key to the remote host
+- name: Deploy User | Add RSA key to the remote host
   authorized_key: user="{{ deploy_user }}" key="{{ lookup('file', deploy_user_key)}}"
 
-- name: Remove password
+- name: Deploy User | Remove password
   command: "passwd {{ deploy_user }} -d"
 
-- name: Update sudoers file 
+- name: Deploy User | Update sudoers file 
   lineinfile: dest="/etc/sudoers" insertafter="EOF" line='{{ deploy_user }} ALL=(ALL) NOPASSWD:ALL' state="present"
   when: deploy_user_sudo
